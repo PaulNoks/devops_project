@@ -23,18 +23,29 @@ stages {
                 }
             }
         }
-  stage('Run Tests') {
+        stage('Start Services') {
             steps {
-                dir('backend') {
-                    // Запуск тестов в контейнере
-                    sh 'docker run --rm backend:latest'
+                script {
+                    // Запускаем контейнеры для фронтенда и бэкенда
+                    sh 'docker-compose up -d frontend backend'
                 }
             }
         }
-        stage('Deploy') {
+  stage('Run Tests') {
             steps {
-                sh 'docker-compose up -d'
+                {
+                    // Запуск тестов в контейнере
+                    sh 'docker-compose run --rm test'
+                }
             }
         }
+      stage('Clean Up') {
+            steps {
+                script {
+                    // После выполнения тестов удаляем контейнер для тестов
+                    sh 'docker-compose down'
+                }
+            }
+        } 
     }
 }

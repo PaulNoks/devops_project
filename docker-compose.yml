@@ -8,8 +8,9 @@ services:
     restart: always
   backend-tests:
     build:
-      context: ./backend
-    command: pytest --maxfail=1 --disable-warnings -q  # Запускает тесты
+      context: ./backend/tests
+       ports:
+      - "5000:5000"
 
 
   frontend:
