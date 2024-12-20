@@ -16,7 +16,7 @@ services:
   prometheus:
     image: prom/prometheus
     volumes:
-      - ./prometheus.yml:~/devops_project/backend/prometheus.yml
+      - ./prometheus.yml:/home/devops/devops_project/backend/prometheus.yml
     ports:
       - "9090:9090"
   grafana:
