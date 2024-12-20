@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-stages {
+    stages {
         stage('Checkout') {
             steps {
                 git 'https://github.com/PaulNoks/devops_project'
@@ -23,6 +23,7 @@ stages {
                 }
             }
         }
+
         stage('Start Services') {
             steps {
                 script {
@@ -31,21 +32,23 @@ stages {
                 }
             }
         }
-  stage('Run Tests') {
+
+        stage('Run Tests') {
             steps {
-                {
+                script {
                     // Запуск тестов в контейнере
                     sh 'docker-compose run --rm test'
                 }
             }
         }
-      stage('Clean Up') {
+
+        stage('Clean Up') {
             steps {
                 script {
                     // После выполнения тестов удаляем контейнер для тестов
                     sh 'docker-compose down'
                 }
             }
-        } 
+        }
     }
 }
