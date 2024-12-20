@@ -32,6 +32,14 @@ pipeline {
                 }
             }
         }
+		
+		stage('Build Tests') {
+		    steps {
+			    dir(backend/tests) {
+					sh 'docker build -t test:latest .'
+				}
+			}
+		}	
 
         stage('Run Tests') {
             steps {
