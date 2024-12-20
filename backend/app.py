@@ -1,5 +1,11 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
+from prometheus_flask_exporter import PrometheusMetrics
+metrics = PrometheusMetrics(app)
+
+# Дополнительные настройки метрик можно добавить, например:
+metrics.info('app_info', 'Application info', version='1.0.0')
+
 
 app = Flask(__name__)
 CORS(app)  # Включаем CORS для всех маршрутов
