@@ -7,16 +7,18 @@ services:
       - "5000:5000"
     restart: always
 
-  backend-tests:
-    build:
-      context: ./backend/tests
-    depends_on:
-    - backend
-    - frontend
-
   frontend:
     build:
       context: ./frontend
     ports:
       - "8081:80"
     restart: always
+
+  backend-tests:
+    build:
+      context: ./backend/tests
+    depends_on:
+      - backend
+    environment:
+      FLASK_APP: app.py
+    command: pytest --maxfail=1 --disable-warnings -q

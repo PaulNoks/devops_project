@@ -24,38 +24,21 @@ pipeline {
             }
         }
 
-        stage('Start Services') {
+        stage('Run Services') {
             steps {
-                script {
-                    // Запускаем контейнеры для фронтенда и бэкенда
-                    sh 'docker-compose up -d frontend backend'
-                }
+                sh 'docker-compose up -d'
             }
         }
-		
-		stage('Build Tests') {
-		    steps {
-			    dir(backend/tests) {
-					sh 'docker build -t test:latest .'
-				}
-			}
-		}	
 
         stage('Run Tests') {
             steps {
-                script {
-                    // Запуск тестов в контейнере
-                    sh 'docker-compose run --rm test'
-                }
+                sh 'docker-compose run --rm backend-tests'
             }
         }
 
         stage('Clean Up') {
             steps {
-                script {
-                    // После выполнения тестов удаляем контейнер для тестов
-                    sh 'docker-compose down'
-                }
+                sh 'docker-compose down'
             }
         }
     }
