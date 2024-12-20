@@ -23,19 +23,14 @@ stages {
                 }
             }
         }
-        stage('Test') {
+  stage('Run Tests') {
             steps {
-                script {
-                    // Переход в каталог с тестами и запуск pytest
-                    dir('backend') {
-                        // Убедитесь, что в контейнере установлены зависимости для тестов
-                        sh 'pip install -r requirements.txt'
-                        sh 'pytest --maxfail=5 --disable-warnings || true'  // Добавлено для отображения тестов в случае ошибки
-                    }
+                dir('backend') {
+                    // Запуск тестов в контейнере
+                    sh 'docker run --rm backend:latest'
                 }
             }
         }
-
         stage('Deploy') {
             steps {
                 sh 'docker-compose up -d'

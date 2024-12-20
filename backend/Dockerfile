@@ -11,4 +11,6 @@ COPY . .
 
 # Указываем порт и запускаем приложение
 EXPOSE 5000
+
+CMD ["pytest", "--maxfail=1", "--disable-warnings", "-q"]
 CMD ["python", "app.py"]
