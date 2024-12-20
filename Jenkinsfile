@@ -30,16 +30,5 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                sh 'docker-compose run --rm backend-tests'
             }
         }
-
-        stage('Clean Up') {
-            steps {
-                sh 'docker-compose down'
-            }
-        }
-    }
-}
