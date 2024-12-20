@@ -6,12 +6,12 @@ services:
     ports:
       - "5000:5000"
     restart: always
+
   backend-tests:
     build:
       context: ./backend/tests
-       ports:
+    ports:
       - "5000:5000"
-
 
   frontend:
     build:
