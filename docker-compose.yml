@@ -10,8 +10,9 @@ services:
   backend-tests:
     build:
       context: ./backend/tests
-    ports:
-      - "5000:5000"
+    depends_on:
+    - backend
+    - frontend
 
   frontend:
     build:
