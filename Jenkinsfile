@@ -26,6 +26,7 @@ pipeline {
 
         stage('Run Services') {
             steps {
+		dir('/home/devops/devops_project')
                 sh 'docker-compose up -d'
             }
         }
